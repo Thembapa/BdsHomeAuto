@@ -1,24 +1,33 @@
-from twilio.rest import Client 
+import json
+import os
+from flask import Flask, render_template, session, redirect, request, send_from_directory, url_for
 import bdsconfig
- 
-account_sid = bdsconfig.account_sid
-auth_token = bdsconfig.auth_token
-client = Client(account_sid, auth_token) 
 
-#Make call
-call = client.calls.create(
-                        url='https://demo.twilio.com/welcome/voice/',
-                        to='+27742280003',
-                        from_='+18145593189'
-                    )
+#Application variables 
+app = Flask(__name__, static_url_path='')
+app.secret_key = "bdsHomeAuto"
+ 
+def is_SignedIn():
+    if 'ActiveUser' in session:
+        return True
+    else: 
+        return False
 
-print(call.sid)
- 
-#send msg 
-#message = client.messages.create(  
-#                              messaging_service_sid=bdsconfig.msg_serviceID, 
-#                              body='Alerm triggered at house 145 Tembisa street',      
-#                              to='+27782928514' 
-#                          ) 
- 
-#print(message.sid)
+@app.route('/deactivate_alert')
+def deactivate_alert():
+    req = request.get_json()
+    db_status={'LED2':req.get('LED2')}
+    print(req)
+    
+    
+    return json.dumps(db_status)
+
+@app.route('/')
+@app.route('/index')
+def index():
+   return  'Where do you think you are going?'
+
+if __name__ == "__main__":
+    # from waitress import serve
+    # serve(app, host="192.168.178.1", port=8080)
+    app.run(host="192.168.8.128", port=9999)
