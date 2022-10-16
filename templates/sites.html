@@ -1,0 +1,23 @@
+{% extends "masterpage.html"%}
+{% block content%}
+<div class="MainDiv">
+    <div class="LeftDiv">
+
+    </div>
+    <div class="CenterDiv SiteCenter" >
+        {%for site in Sites%}
+        <a href="grantacc/{{site}}">
+            <div class="Site">
+                {{Sites[site]}}
+                
+            </div>
+
+        </a>
+       {%endfor%}
+    </div>
+    <div class="RightDiv">
+        
+    </div>
+
+</div>
+{%endblock%}

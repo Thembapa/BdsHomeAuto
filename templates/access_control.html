@@ -1,0 +1,99 @@
+{% extends "masterpage.html"%}
+{% block content%}
+<div class="MainDiv">
+    <div class="LeftDiv">
+
+    </div>
+        <div class="CenterDiv AccessCenter">
+            <div class= "AccessForm">
+                <form  action="/grantacc/{{location_id}}/{{AccessType}}" method="POST" id="frmAccess" autocomplete="off">
+                    <div class="AccessBody">
+                        <div class="AccessHeader">
+                            {{SiteName}}
+                        </div>
+                        
+                        <div class="form-group checkinoption">
+                            <input type="radio" class="btn-check" name="options" id="rbCar" value="Car"  onclick="changeCheckIn('{{location_id}}','0');">
+                            <label class="btn btn-secondary checkboxImage" id="imgCar" for="rbCar">
+                                <img  src="{{url_for('static',filename='images/icons/car.png')}}">
+                            </label>
+                            <input type="radio" class="btn-check" name="options" id="rbWalk" value="Walk" onclick="changeCheckIn('{{location_id}}','1');">
+                            <label class="btn btn-secondary checkboxImage" id="imgWalk" for="rbWalk">
+                                <img src="{{url_for('static',filename='images/icons/walk.png')}}">
+                            </label>
+                        </div> 
+                        <div id="car_access">
+                            <div class="form-group">
+                                <label for="txtReg">Registration Number</label>
+                                <input type="text" class="form-control" placeholder="Registration Number"  id="txtReg" name="txtReg" value="{{ scanValues[7] if scanValues[7] is not none }}" readonly>
+                            </div> 
+                            <div class="form-group">
+                                <label for="txtLicence">Licence Number</label>
+                                <input type="text" class="form-control" placeholder="Licence Number" id="txtLicence" name="txtLicence"  value="{{ scanValues[6] if scanValues[6] is not none }}"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtMake">Make</label>
+                                <input type="text" class="form-control" placeholder="Make" id="txtMake" name="txtMake" value="{{ scanValues[9] if scanValues[9] is not none }}"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtSeries">Series Name</label>
+                                <input type="text" class="form-control" placeholder="Series Name" id="txtSeries" name="txtSeries" value="{{ scanValues[10] if scanValues[10] is not none }}"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtColour">Colour</label>
+                                <input type="text" class="form-control" placeholder="Colour" id="txtColour" name="txtColour" value="{{ scanValues[11] if scanValues[11] is not none }}"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtExpiry">Date of Expiry</label>
+                                <input type="text" class="form-control" placeholder="Date of Expiry" id="txtExpiry" name="txtExpiry" value="{{ scanValues[14] if scanValues[14] is not none }}"  readonly>
+                            </div>
+                            
+                        </div>
+                        <div id="pedestrian_Access">
+                            <div class="form-group">
+                                <label for="txtReg">Initials</label>
+                                <input type="text" class="form-control" placeholder="Initials"  id="txtInitials" name="txtInitials" value="{{ scanValues[7] if scanValues[7] is not none }}" readonly>
+                            </div> 
+                            <div class="form-group">
+                                <label for="txtLicence">Surname</label>
+                                <input type="text" class="form-control" placeholder="Surname" id="txtSurname" name="txtSurname"  value="{{ scanValues[6] if scanValues[6] is not none }}"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtMake">SA Sitizen</label>
+                                <input type="text" class="form-control" placeholder="SA Sitizen" id="txtSitizen" name="txtSitizen" value="{{ scanValues[9] if scanValues[9] is not none }}"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtSeries">ID Number</label>
+                                <input type="text" class="form-control" placeholder="ID Number" id="txtIDNumber" name="txtIDNumber" value="{{ scanValues[10] if scanValues[10] is not none }}"  readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtColour">Passport Number</label>
+                                <input type="text" class="form-control" placeholder="Passport Number" id="txtPasport" name="txtPasport" value="{{ scanValues[11] if scanValues[11] is not none }}"  readonly>
+                            </div>
+                            
+                        </div>
+                        
+        
+                    </div>
+                    <div class="form-group barcode">
+                        <input type="text" class="form-control" placeholder="Scan barcode" id="textBacode" name="textBacode"  onkeydown = "if (event.keyCode == 13) document.getElementById('frmAccess').submit();" required>
+                    </div>
+                    <input type="hidden" id="hfOption" name="hfOption" value="{{AccessType}}">
+
+                </form>
+               
+                
+    
+            </div>
+            
+           
+          
+        </div>
+   
+    <div class="RightDiv">
+        
+    </div>
+    
+
+</div>
+{%endblock%}

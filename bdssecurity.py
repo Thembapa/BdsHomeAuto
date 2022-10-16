@@ -13,6 +13,8 @@ def is_SignedIn():
         return True
     else: 
         return False
+
+
 @app.route('/deactivate_alert', methods=['GET', 'POST'])
 @app.route('/deactivate_alert/<alert_id>')
 def deactivate_alert(alert_id= None):
@@ -22,7 +24,7 @@ def deactivate_alert(alert_id= None):
     if alert_id is not None:
         session['alert_id'] = alert_id
     if is_SignedIn():
-        status_id=2
+        return redirect('/')
         if 'alert_id' in session:
             #Get alert status and details 
             param={'AlertID':session['alert_id']}
@@ -47,18 +49,70 @@ def deactivate_alert(alert_id= None):
                     session.clear()
                     status_id=1
                     user_id=1
-                    zone=''
-
-            
+                    zone=''          
     
     return render_template('deactivate.html', status_id =status_id,zone=zone)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login(alert_id= None):
+    status_id=1
+    user_id=1
+    zone=''
+    if alert_id is not None:
+        session['alert_id'] = alert_id
+    if is_SignedIn():
+        status_id=2
+        if 'alert_id' in session:
+            #Get alert status and details 
+            param={'AlertID':session['alert_id']}
+            url='https://api.bdstech.co.za/alert_status'
+            alert_status = requests.get(url, json=param).json()
+            zone =alert_status.get('Zone')
+            print(alert_status)
+
+    if request.method == 'POST':
+       print('Post command!')          
+    
+    return render_template('login.html', status_id =status_id,zone=zone)
+
+
+@app.route('/sites')
+def sites():
+   #return  redirect('/login')
+   Sites={'1':'WINDMILL PARK ESTATE','2':'VILLA LIZA PRIMARY SCHOOL','3':'THOMBO HOSPITAL'}
+   
+
+
+   return render_template('sites.html',Sites= Sites)
+
+@app.route('/grantacc/<location_id>',methods=['GET', 'POST'])
+@app.route('/grantacc/<location_id>/<AccessType>',methods=['GET', 'POST'])
+def grantacc(location_id= None,AccessType=None):
+   #return  redirect('/login')
+   SiteName =''
+   scanValues=[]
+   Sites={'1':'WINDMILL PARK ESTATE','2':'VILLA LIZA PRIMARY SCHOOL','3':'THOMBO HOSPITAL'}
+   SiteName=Sites[location_id]
+   if request.method == 'POST':
+    Scan =request.form["textBacode"]#'%MVL1CC64%0161%4025T053%1%40250135ZBZW%STZ031GP%FZG642S%Sedan (closed top) / Sedan (toe-kap) %CHEVROLET%AVEO%Red / Rooi%KL1TJ52Y66B497649%F15S3100839K%2021-11-30%'
+    scanValues = Scan.split('%')
+    print('len',len(scanValues),' ',scanValues)
+
+   return render_template('access_control.html',SiteName= SiteName,location_id=location_id,scanValues= scanValues,AccessType= AccessType)
 
 @app.route('/')
 @app.route('/index')
 def index():
-   return  'Where do you think you are going?'
+   #return  redirect('/login')
+   Task={'GRANT ACCESS':{'Url':'/sites','icon':'/images/icons/Access.png'}
+                        ,'CHECK ALERTS':{'Url':'#','icon':'/images/icons/alert.png'}
+                        ,'ACOUNT':{'Url':'#','icon':'/images/icons/account.png'}
+                        ,'BILLING':{'Url':'#','icon':'/images/icons/bill.png'}
+                        ,'TICKETS':{'Url':'#','icon':'/images/icons/ticket.png'}}
+
+   return render_template('index.html',Task= Task)
 
 if __name__ == "__main__":
     # from waitress import serve
     # serve(app, host="192.168.178.1", port=8080)
-    app.run(host="192.168.8.128", port=9999)
+    app.run(host="192.168.8.5", port=9999)

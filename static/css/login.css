@@ -1,0 +1,85 @@
+body
+{
+    padding: 0;
+    margin: 0;
+    background-image: url("/images/bgimages/login_bg.jpg");
+    background-size:cover;
+}
+.Loginform
+{
+    width: 25%;
+    height: 40vh;
+    color: white;
+    border-radius: 3ch;
+    padding: 15px;
+    margin-left: 35%;
+    margin-top: 25vh;
+    font-size: 25px;
+    text-align: center;
+}
+.Loginform input {
+    width: 98%;
+    height: 5vh;
+    border-radius:1.5ch;
+    margin: 2px;
+    display: inline-block;
+    float: right;
+}
+.Loginform button {
+    font-size: 30px;
+    width: 98%;
+    margin: 5px;
+    background-color: deeppink;
+    border-color:deeppink;
+}
+.UserImage
+{
+    width: 200px;
+    margin: 5px;
+}
+@media (max-width: 768px) {
+    .Loginform
+    {
+        width: 80%;
+        height: 500px;
+        margin-left: 12%;
+        margin-top: 200px;
+        font-size: 16px;
+        padding: 5px;
+    }
+   
+    .Loginform button {
+        font-size: 15px;
+        height: 50px ;
+        border-radius:1.5ch;
+    }
+    .Loginform input {
+        height: 50px ;
+    }
+    body{
+        background-size: auto;
+    }
+}
+@media (max-width: 400px) {
+    .Loginform
+    {
+        height: 600px;
+        width: 100%;
+        margin-left: 0;
+        padding: 15px;
+        margin-top: 100px;
+    }
+    .Loginform button {
+        font-size: 15px;
+        height: 50px ;
+        border-radius:1.5ch;
+    }
+    .Loginform input {
+        height: 50px ;
+    }
+    .UserImage
+    {
+        width: 150px;
+    }
+}
+

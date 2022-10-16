@@ -1,0 +1,23 @@
+{% extends "masterpage.html"%}
+{% block content%}
+<div class="MainDiv">
+    <div class="LeftDiv">
+
+    </div>
+    <div class="CenterDiv">
+        {%for task in Task%}
+        <a href="{{Task[task]['Url']}}">
+            <div class="Task">
+                {{task}}
+                <img src="{{Task[task]['icon']}}">
+            </div>
+
+        </a>
+       {%endfor%}
+    </div>
+    <div class="RightDiv">
+        
+    </div>
+
+</div>
+{%endblock%}
