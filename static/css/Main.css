@@ -25,16 +25,16 @@ body
     vertical-align: top;
     padding: 5px;
     overflow-y: scroll;
-    background-image: url("/images/bgimages/security.jpg");
+    background-image: url("../images/bgimages/security.jpg");
     background-size: cover;
 }
 .SiteCenter
 {
-    background-image: url("/images/bgimages/estate.jpg");
+    background-image: url("../images/bgimages/estate.jpg");
 }
 .AccessCenter
 {
-    background-image: url("/images/bgimages/GateAccess.jpg");
+    background-image: url("../images/bgimages/GateAccess.jpg");
 }
 .CenterDiv::-webkit-scrollbar {
     display: none;

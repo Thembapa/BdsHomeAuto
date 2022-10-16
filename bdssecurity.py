@@ -103,14 +103,16 @@ def grantacc(location_id= None,AccessType=None):
 @app.route('/')
 @app.route('/index')
 def index():
+    if not is_SignedIn():
+        return redirect('/login')
    #return  redirect('/login')
-   Task={'GRANT ACCESS':{'Url':'/sites','icon':'/images/icons/Access.png'}
+    Task={'GRANT ACCESS':{'Url':'/sites','icon':'/images/icons/Access.png'}
                         ,'CHECK ALERTS':{'Url':'#','icon':'/images/icons/alert.png'}
                         ,'ACOUNT':{'Url':'#','icon':'/images/icons/account.png'}
                         ,'BILLING':{'Url':'#','icon':'/images/icons/bill.png'}
                         ,'TICKETS':{'Url':'#','icon':'/images/icons/ticket.png'}}
 
-   return render_template('index.html',Task= Task)
+    return render_template('index.html',Task= Task)
 
 if __name__ == "__main__":
     # from waitress import serve
